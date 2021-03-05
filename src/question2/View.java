@@ -1,14 +1,16 @@
 package question2;
 
 import javax.swing.*;
+import java.util.Observer;
+import java.util.Observable;
 
+public class View implements Observer {
+    public JTextField jTextField;
+    public JButton jButton1;
+    public JButton jButton2;
 
-public class View  {
-    private JTextField jTextField;
-    private JButton jButton1;
-    private JButton jButton2;
+    public View(Number number){
 
-    View(Number number){
         // create the window
         JFrame window = new JFrame();
         // give a title
@@ -39,5 +41,23 @@ public class View  {
         window.setVisible(true);
 
         number.addObserver(this);
+
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof  Number) {
+            Number number = (Number) o;
+            this.jTextField.setText(String.valueOf((number.getValue())));
+
+        }
+    }
+
+    public JTextField getjTextField() {
+        return jTextField;
+    }
+
+    public JButton getPlus(){return jButton1;}
+    public JButton getMoins(){return jButton2;}
+
 }
